@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /browscap/
+Disallow: /def/
+Disallow: /images/
+Disallow: /inc/
+Disallow: /lang/
+Disallow: /option/
+Disallow: /setup_files/
+Disallow: /stili/
+Disallow: /templates/

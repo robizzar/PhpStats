@@ -1,0 +1,21 @@
+.radio { BORDER-RIGHT: #9DBECD 0px solid; BORDER-TOP: #9DBECD 0px solid; BORDER-BOTTOM: #9DBECD 0px solid; BORDER-LEFT: #9DBECD 0px solid; COLOR: #000000; FONT-SIZE: 10px; FONT-FAMILY: Verdana; BACKGROUND-COLOR: #EEEEEE }
+.checkbox { BORDER-RIGHT: #9DBECD 0px solid; BORDER-TOP: #9DBECD 0px solid; BORDER-BOTTOM: #9DBECD 0px solid; BORDER-LEFT: #9DBECD 0px solid; COLOR: #000000; FONT-SIZE: 10px; FONT-FAMILY: Verdana; BACKGROUND-COLOR: #EEEEEE }
+select, option, textarea, input { BORDER-RIGHT: #9DBECD 1px solid; BORDER-TOP: #9DBECD 1px solid; BORDER-BOTTOM: #9DBECD 1px solid; BORDER-LEFT: #9DBECD 1px solid; COLOR: #000000; FONT-SIZE: 10px; FONT-FAMILY: Verdana; BACKGROUND-COLOR: #ffffff }
+a:visited,a:active {text-decoration:none; color:#000000; font-weight:plain;}
+a:hover {text-decoration:none; color:#AA0000; font-weight: plain;}
+a:link { text-decoration:none; color:#000000; font-weight:plain; } 
+ul { list-style-type: square; text-indent: -10pt;}
+.tabletitle { font-family: Verdana; font-size: 10px; color: #FFFFFF; font-weight: bold}
+.tabletextA { font-family: Verdana; font-size: 10px; color: #000000; }
+.tabletextB { font-family: Verdana; font-size: 10px; color: #FF0000; }
+.pagetitle { font-family: Verdana; font-size: 11px; color: #000000; font-weight: bold;}
+.servertime { font-family: Verdana; font-size: 9px; color: #222222; }
+.testo {  font-family: Verdana; font-size: 10px; color: #000000}
+.copyright {  font-family: Verdana; font-size: 10px; color: #FFFFFF;}
+.nomesito {  font-family: Verdana; font-size: 11px; color: #FFFFFF;}
+.whois { font-family: Lucida Console; font-size: 10px; color: #000000; }
+nobr.sitemap { display: block; }
+nobr.sitemap img { width: 16px; height: 16px; border: 0px; vertical-align: baseline; }
+nobr.sitemap div { display: none; margin-left: 0px; }
+ 
+

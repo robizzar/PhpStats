@@ -1,0 +1,17 @@
+DROP TABLE IF EXISTS php_stats_config;
+DROP TABLE IF EXISTS php_stats_cache;
+DROP TABLE IF EXISTS php_stats_clicks;
+DROP TABLE IF EXISTS php_stats_counters;
+DROP TABLE IF EXISTS php_stats_daily;
+DROP TABLE IF EXISTS php_stats_details;
+DROP TABLE IF EXISTS php_stats_domains;
+DROP TABLE IF EXISTS php_stats_downloads;
+DROP TABLE IF EXISTS php_stats_hourly;
+DROP TABLE IF EXISTS php_stats_ip;
+DROP TABLE IF EXISTS php_stats_langs;
+DROP TABLE IF EXISTS php_stats_pages;
+DROP TABLE IF EXISTS php_stats_query;
+DROP TABLE IF EXISTS php_stats_referer;
+DROP TABLE IF EXISTS php_stats_systems;
+DROP TABLE IF EXISTS php_stats_links;
+DROP TABLE IF EXISTS php_stats_ip_zone;

@@ -1,0 +1,1 @@
+Il nome dei templates deve avere una lunghezza massima di 20 caratteri.

@@ -1,0 +1,27 @@
+body { background-color: #CCCCCC; }
+.radio { BORDER-RIGHT: #9DBECD 0px solid; BORDER-TOP: #9DBECD 0px solid; BORDER-BOTTOM: #9DBECD 0px solid; BORDER-LEFT: #9DBECD 0px solid; COLOR: #000000; FONT-SIZE: 10px; FONT-FAMILY: Verdana; BACKGROUND-COLOR: #EEEEEE }
+.checkbox { BORDER-RIGHT: #9DBECD 0px solid; BORDER-TOP: #9DBECD 0px solid; BORDER-BOTTOM: #9DBECD 0px solid; BORDER-LEFT: #9DBECD 0px solid; COLOR: #000000; FONT-SIZE: 10px; FONT-FAMILY: Verdana; BACKGROUND-COLOR: #EEEEEE }
+select, option, textarea, input { BORDER-RIGHT: #9DBECD 1px solid; BORDER-TOP: #9DBECD 1px solid; BORDER-BOTTOM: #9DBECD 1px solid; BORDER-LEFT: #9DBECD 1px solid; COLOR: #000000; FONT-SIZE: 10px; FONT-FAMILY: Verdana; BACKGROUND-COLOR: #ffffff }
+a:visited,a:active {text-decoration:none; color:#000000; font-weight:plain;}
+a:hover {text-decoration:none; color:#AA0000; font-weight: plain;}
+a:link { text-decoration:none; color:#000000; font-weight:plain; }
+ul { list-style-type: square; text-indent: -10pt;}
+.tabletitle { font-family: Verdana; font-size: 10px; color: #FFFFFF; font-weight: bold}
+.tabletextA { font-family: Verdana; font-size: 10px; color: #000000; }
+.tabletextB { font-family: Verdana; font-size: 10px; color: #FF0000; }
+.pagetitle { font-family: Verdana; font-size: 11px; color: #000000; font-weight: bold;}
+.servertime { font-family: Verdana; font-size: 9px; color: #222222; }
+.testo {  font-family: Verdana; font-size: 10px; color: #000000}
+.copyright {  font-family: Verdana; font-size: 10px; color: #FFFFFF;}
+.nomesito {  font-family: Verdana; font-size: 11px; color: #FFFFFF;}
+.whois { font-family: Lucida Console; font-size: 10px; color: #000000; }
+nobr.sitemap { display: block; }
+nobr.sitemap img { width: 16px; height: 16px; border: 0px; vertical-align: baseline; }
+nobr.sitemap div { display: none; margin-left: 0px; }
+#menubar { position:absolute; width:620px; left: 66px; top:46px; background-color:#3359B7; border:2px solid #000080; padding:3px; font-family:"Verdana"; font-weight: bold; text-align: center; font-size: 11px; color: #FFFFFF; }
+#menubar { border-bottom-color:#182D62; border-right-color:#244084; border-left-color:#5776C3; border-top-color:#7C95D3; }
+#menubar a { color:#FFFFFF; letter-spacing:1px; border:2px solid #3359B7; padding-left:5px; padding-right:5px; text-decoration:none; }
+#menubar a.active { border-bottom-color:#7993D1; border-right-color:#5574C2; border-left-color:#244084; border-top-color:#1F3569; }
+.menu .options { margin-right:1px; margin-bottom:1px; border:1px solid #0000A3; background-color:#F0F0F7; font-family:"Verdana";font-weight:normal;font-size: .7em;}
+.menu a { color:#000066; display:block; padding:2px 10px; text-decoration:none; background-color:transparent; }
+.menu a:hover { background-color:#FFF6AE; color:#0D006C; }

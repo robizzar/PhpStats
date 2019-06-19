@@ -1,0 +1,21 @@
+.radio { BORDER-RIGHT: #9DBECD 0px solid; BORDER-TOP: #9DBECD 0px solid; BORDER-BOTTOM: #9DBECD 0px solid; BORDER-LEFT: #9DBECD 0px solid; COLOR: #000000; FONT-SIZE: 10px; FONT-FAMILY: Verdana; BACKGROUND-COLOR: #EEEEEE }
+.checkbox { BORDER-RIGHT: #9DBECD 0px solid; BORDER-TOP: #9DBECD 0px solid; BORDER-BOTTOM: #9DBECD 0px solid; BORDER-LEFT: #9DBECD 0px solid; COLOR: #000000; FONT-SIZE: 10px; FONT-FAMILY: Verdana; BACKGROUND-COLOR: #EEEEEE }
+select, option, textarea, input { BORDER-RIGHT: #9DBECD 1px solid; BORDER-TOP: #9DBECD 1px solid; BORDER-BOTTOM: #9DBECD 1px solid; BORDER-LEFT: #9DBECD 1px solid; COLOR: #000000; FONT-SIZE: 10px; FONT-FAMILY: Verdana; BACKGROUND-COLOR: #ffffff }
+
+a:visited {text-decoration:none; font-family: Verdana;  color:#000000; font-weight:plain;}
+a:active {text-decoration:none; font-family: Verdana; color:#000000; font-weight:plain;}
+a:hover {text-decoration:none; font-family: Verdana; color:#AA0000; font-weight: plain;}
+a:link { text-decoration:none; font-family: Verdana; color:#000000; font-weight:plain; }
+
+ul { list-style-type: square; text-indent: -10pt;}
+.tabletitle { font-family: Verdana; font-size: 12px; color: #FFFFFF; font-weight: bold; }
+.tabletextA { font-family: Verdana; font-size: 12px; color: #000000}
+.tabletextB { font-family: Verdana; font-size: 12px; color: #FF0000 }
+.pagetitle { font-family: Verdana; font-size: 13px; color: #000000; font-weight: bold; }
+.servertime { font-family: Verdana; font-size: 12px; color: #222222 }
+.testo {  font-family: Verdana; font-size: 12px; color: #000000}
+
+.menu {  font-family: Verdana; font-size: 14px; color: #000000; margin-top: 3px; margin-bottom: 5px}
+.copyright {  font-family: Verdana; font-size: 12px; color: #000000}
+.nomesito {  font-family: Verdana; font-size: 13px; color: #000000; padding:4px}
+.whois { font-family: Lucida Console; font-size: 12px; color: #000000; }

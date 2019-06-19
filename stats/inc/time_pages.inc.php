@@ -1,0 +1,232 @@
+<?php
+// <!-- SECURITY ISSUES -->
+if(!defined('IN_PHPSTATS')) die('Php-Stats internal file.');
+
+//-------------------------------------------------------------------------------------------------
+// 		SALVATAGGIO / CARICAMENTO DELL'ULTIMA MODALITA' DI VISUALIZZAZIONE UTILIZZATA
+//-------------------------------------------------------------------------------------------------
+if ( user_is_logged_in() && $option['keep_view_mode'])
+{
+	foreach ($_GET as $key => $value)
+	{
+		if ($key != 'action' && $key != 'start')
+			$save_cfg .= "\$_GET['$key']='$value';\r\n";
+	}
+
+	if ($save_cfg)
+	{
+		file_put_contents('option/'.$_GET['action'].'.cfg', $save_cfg);
+	}
+	else if (count($_GET)==1)
+	{
+		$settings = file_get_contents('option/'.$_GET['action'].'.cfg');
+	    eval( $settings );
+	}
+}
+//-------------------------------------------------------------------------------------------------
+
+// <!-- INCOMING DATA PROCESSING -->
+$start=(isset($_GET['start']) ? (int)addslashes($_GET['start']) : 0);
+$sort=(isset($_GET['sort']) ? addslashes($_GET['sort']) : 'totale'); // Default sort
+$order=(isset($_GET['order']) ? (int)addslashes($_GET['order']) : 0); // Default order
+$mode=(isset($_GET['mode']) ? (int)addslashes($_GET['mode']) : 1);
+
+// <!-- PAGE FUNCTION -->
+function time_pages() {
+global $db,$string,$error,$varie,$style,$option,$start,$sort,$order,$phpstats_title,$mode;
+// <!-- DATA ACQUISITION -->
+//(bool)$dataFound:
+//query: at least 1 entry
+
+//(int)$totalEntries,(int)$totalPresence,(int)$totalVisits
+//query
+
+//(int)$currentPage
+
+//(int)$pageNumber
+
+//(array)$data_pages:
+//query: data, (prsence/count),presence,titlePage ordered by $sort ASC/DESC depending on $order
+//array format:
+//Array(
+//        Array((string)url,(int)average,(int)presence,(string)title);
+//        ...
+//);
+
+//(string)$range_str
+
+//(array)$fascia:
+//query: count(1) WHERE tocount > 0 AND presence BETWEEN $range[$i] AND $range[$i+1]
+//array format:
+//Array(
+//        Array((int)visite,(string)range);
+//);
+
+//(int)$maxEntries
+
+
+$tables=Array('pagina'=>'data','permanenza'=>'average','totale'=>'presence');
+$modes=Array('0'=>'DESC','1'=>'ASC');
+$sortBy=(isset($tables[$sort]) ? $tables[$sort] : 'presence');
+$orderBy=(isset($modes[$order]) ? $modes[$order] : 'DESC');
+
+do{
+        $dataFound=false;
+
+        $recordPerPage=50;
+        $res=sql_query("SELECT count(1),sum(presence),sum(tocount) FROM $option[prefix]_pages WHERE tocount>0");
+        list($totalEntries,$totalPresence,$totalVisits)=mysql_fetch_row($res);
+        $totalEntries=(int)$totalEntries;
+        if($totalEntries===0) break;
+
+        $pageNumber=ceil($totalEntries/$recordPerPage);
+        $currentPage=ceil(($start/$recordPerPage)+1);
+
+        //creation of $data_pages
+        $data_pages=Array();
+        $res=sql_query("SELECT data,(presence/tocount) as average,presence,titlePage FROM $option[prefix]_pages WHERE tocount>0 ORDER BY $sortBy $orderBy LIMIT $start,$recordPerPage");
+        if(mysql_num_rows($res)<1) break;
+        while($row=mysql_fetch_row($res)){
+                list($pages_url,$pages_average,$pages_presence,$pages_title)=$row;
+                $pages_average=(int)$pages_average;
+                $pages_presence=(int)$pages_presence;
+                $data_pages[]=Array($pages_url,$pages_average,$pages_presence,$pages_title);
+        }
+        $dataFound=true;
+
+                //creation of $fascia
+                $range_str = "0-30-120-300-900-1800-3600";
+                //$range_str = "0-60-120-180-240-300-600-1200-2400-3600";  //ALTRO ESEMPIO;
+                $range = explode("-",$range_str);
+                for ($i=0,$tmp=count($range)-1;$i<$tmp;++$i){
+                        list($fascia[$i]['visite'])=mysql_fetch_array(sql_query("SELECT count(1) FROM $option[prefix]_pages WHERE tocount > 0 AND presence BETWEEN ".($range[$i] + 1)." AND ".$range[$i+1]));
+                        $maxEntries = max($maxEntries,$fascia[$i]['visite']);
+                }
+                list($fascia[$i]['visite'])=mysql_fetch_array(sql_query("SELECT count(1) FROM $option[prefix]_pages WHERE tocount > 0 AND presence > {$range[$i]}"));
+                $maxEntries = max($maxEntries,$fascia[$i]['visite']);
+
+}while(false);
+
+
+// <!-- DATA PROCESSING -->
+//not needed
+
+
+// <!-- PRE-OUTPUT PROCESSING -->
+
+//(array)$output_pages:
+//Array(
+//        Array((string)entry,(string)average,(string)presence)
+//        ...
+//);
+
+//$(array)$fascia:
+//array format:
+//Array(
+//        Array((int)visite,(string)range,(float.2)perc,(float.2)perc_image;
+//);
+
+if($dataFound){
+        $output_pages=Array();
+        for($i=0,$tot=count($data_pages);$i<$tot;++$i){
+                list($url,$average,$presence,$title)=$data_pages[$i];
+                $title=stripslashes(trim($title));
+
+
+				/*** I had troubles converting Unicode-encoded data in $_GET (like this: %u05D8%u05D1%u05E2) which is generated by JavaScript's escape() function to UTF8 for server-side processing. ***/
+				$title = preg_replace("/%u([0-9a-f]{3,4})/i", "&#x\\1;", $title);
+
+                $entry=formaturl($url,$title,60,25,-25,$title,$mode);
+                $average=formatperm($average);
+                $presence=formatperm($presence,2);
+                $output_pages[]=Array($entry,$average,$presence);
+        }
+        unset($data_pages);
+
+                /*for ($i=0,$tmp=count($range)-1;$i<$tmp;++$i){
+                        $maxEntries = max($maxEntries,$fascia[$i]['visite']);
+                } Spostato tra i DATA ACQUISITION */
+                for ($i=0,$tmp=count($range)-1;$i<$tmp;++$i){
+                        $fascia[$i]['range'] = formatperm($range[$i])." - ".formatperm($range[$i+1]);
+                        $fascia[$i]['perc'] = round($fascia[$i]['visite']*100/$totalEntries,2);
+                        $fascia[$i]['perc_image'] = round($fascia[$i]['visite']*100/$maxEntries,2);
+                }
+                $fascia[$i]['range'] = formatperm($range[$i])." + ";
+                $fascia[$i]['perc'] = round($fascia[$i]['visite']*100/$totalEntries,2);
+                $fascia[$i]['perc_image'] = round($fascia[$i]['visite']*100/$maxEntries,2);
+                unset($range);
+
+}
+
+
+// <!-- OUTPUT CREATION -->
+
+$return='';
+// Page title (also show in admin)
+$phpstats_title=$string['time_pages_title'];
+
+if($dataFound){
+        // Title
+        $return.="<span class=\"pagetitle\">$phpstats_title</span><br>";
+
+        if($pageNumber>1) $return.="<div align=\"right\"><span class=\"testo\">".str_replace(Array('%current%','%total%'),Array($currentPage,$pageNumber),$varie['pag_x_y'])."&nbsp;&nbsp;</span></div>";
+
+        $return.=
+        "<br><table border=\"0\" $style[table_header] width=\"90%\" align=\"center\" class=\"tableborder\"><tr>".
+        draw_table_title($string['time_pages_url'],'pagina','admin.php?action=time_pages',$tables,$sortBy,$orderBy).
+        draw_table_title($string['time_pages_perm'],'permanenza','admin.php?action=time_pages',$tables,$sortBy,$orderBy).
+        draw_table_title($string['time_pages_tot'],'totale','admin.php?action=time_pages',$tables,$sortBy,$orderBy).
+        "</tr>";
+
+        for($i=0,$tot=count($output_pages);$i<$tot;++$i){
+                list($entry,$average,$presence)=$output_pages[$i];
+                $return.=
+                "\n<tr onmouseover=\"setPointer(this, '$style[table_hitlight]', '$style[table_bgcolor]')\" onmouseout=\"setPointer(this, '$style[table_bgcolor]', '$style[table_bgcolor]')\">".
+                "\n\t<td bgcolor=$style[table_bgcolor] align=\"left\"><span class=\"tabletextA\">$entry</span></td>".
+                "\n\t<td bgcolor=$style[table_bgcolor] align=\"left\"><span class=\"tabletextA\"><b>$average</b></span></td>".
+                "\n\t<td bgcolor=$style[table_bgcolor]><span class=\"tabletextA\">$presence</span></td>".
+                "\n</tr>";
+        }
+        $return.= "\n<tr>\n\t<td height=\"1\" bgcolor=$style[table_title_bgcolor] colspan=\"4\" nowrap></td></tr>";
+        if($pageNumber>1){
+                $return.=
+                "\n<tr>\n\t<td bgcolor=$style[table_bgcolor] colspan=\"4\" height=\"20\" nowrap>".
+                pag_bar("admin.php?action=time_pages&sort=$sort&order=$order&mode=$mode",$currentPage,$pageNumber,$recordPerPage);
+//                "\n<tr>\n\t<td height=\"1\" bgcolor=$style[table_title_bgcolor] colspan=\"4\" nowrap></td></tr>";
+        }
+        $return.="</table>";
+
+                //Group by range MOD dapuzz
+                $return.="<br />
+                <span class=\"pagetitle\">$string[time_pages_range_title]</span><br /><br />
+                <table $style[table_header] width=\"65%\" class=\"tableborder\">
+                <tr><td bgcolor=$style[table_title_bgcolor] nowrap colspan='3'><span class=\"tabletitle\"><center>$string[time_pages_range_total_visits]: $totalVisits - $string[time_pages_range_average]: ".formatperm(round($totalPresence/$totalVisits,0))."</center></span></td></tr>
+                <tr>
+                        <td bgcolor=$style[table_title_bgcolor] nowrap><span class=\"tabletitle\"><center>$string[time_pages_range_range]</center></span></td>
+                        <td bgcolor=$style[table_title_bgcolor] nowrap><span class=\"tabletitle\"><center>{$string['pages_hits']}</center></span></td>
+                        <td bgcolor=$style[table_title_bgcolor] nowrap><span class=\"tabletitle\"><center>{$string['pages_perc']}</center></span></td>
+                </tr>";
+                for ($i=0,$tmp=count($fascia);$i<$tmp;$i++){
+                        $return .="
+                        <tr onmouseover=\"setPointer(this, '$style[table_hitlight]', '$style[table_bgcolor]')\" onmouseout=\"setPointer(this, '$style[table_bgcolor]', '$style[table_bgcolor]')\">
+                                <td bgcolor=$style[table_bgcolor] align=\"left\"><span class=\"tabletextA\">{$fascia[$i]['range']}</span></td>
+                            <td bgcolor=$style[table_bgcolor] align=\"left\"><span class=\"tabletextA\">{$fascia[$i]['visite']}</span></td>
+                            <td bgcolor=$style[table_bgcolor] align=\"left\"><span class=\"tabletextA\"><img src=\"templates/$option[template]/images/style_bar_1.gif\" width=\"{$fascia[$i]['perc_image']}\" height=\"7\"> {$fascia[$i]['perc']}%</span></td>
+                        </tr>";
+                }
+                //unset($fascia,$range); Adesso posso cancellare o si deve inserire una nuova sezione unset? LoL!!
+                //$return.= "<tr><td height=\"1\" bgcolor=$style[table_title_bgcolor] colspan=\"4\" nowrap></td></tr>\n";
+                $return.= "</table><br />";
+                // End of group by range
+
+        // SELEZIONE MODALITA'
+        $return.="<br><center><table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">";
+        if($mode!=0) $return.="<tr><td><span class=\"testo\"><a href=\"admin.php?action=time_pages&sort=$sort&order=$order&mode=0\"><img src=templates/$option[template]/images/icon_changevis.gif border=\"0\" align=\"absmiddle\" hspace=\"1\" vspace=\"1\"><span class='testo'> $string[pages_mode_0]</span></a></td></tr>";
+        if($mode!=1) $return.="<tr><td><span class=\"testo\"><a href=\"admin.php?action=time_pages&sort=$sort&order=$order&mode=1\"><img src=templates/$option[template]/images/icon_changevis.gif border=\"0\" align=\"absmiddle\" hspace=\"1\" vspace=\"1\"><span class='testo'> $string[pages_mode_1]</span></a></td></tr>";
+        if($mode!=2) $return.="<tr><td><span class=\"testo\"><a href=\"admin.php?action=time_pages&sort=$sort&order=$order&mode=2\"><img src=templates/$option[template]/images/icon_changevis.gif border=\"0\" align=\"absmiddle\" hspace=\"1\" vspace=\"1\"><span class='testo'> $string[pages_mode_2]</span></a></td></tr>";
+        $return.="</table></center>";
+  }
+else $return.=info_box($string['information'],$error['pages']);
+return($return);
+}
+?>
