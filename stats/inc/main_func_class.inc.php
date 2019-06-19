@@ -3,6 +3,7 @@
 if(!defined('IN_PHPSTATS'))
 	die('Php-Stats internal file.');
 define('__RANGE_MACRO__','-Spider,Grabber-');
+require_once(__PHP_STATS_PATH__ . 'inc/php7support.inc.php');
 
 class php_stats_recFunction
 {

@@ -121,10 +121,13 @@ switch ($mode)
 
     // N° VISITE ALLA PAGINA CORRENTE
     case '6':
-	$current_url = urldecode( $_SERVER['HTTP_REFERER'] );
-//file_put_contents("debug.txt", $current_url);
-        list($hits,$no_count_hits)=mysql_fetch_row(sql_query("SELECT hits,no_count_hits FROM $option[prefix]_pages WHERE data='$current_url' LIMIT 1"));
+		$current_url = urldecode( $_SERVER['HTTP_REFERER'] );
+		$current_url = str_replace('http://', '', $current_url);
+		$current_url = str_replace('https://', '', $current_url);
+        list($hits,$no_count_hits)=mysql_fetch_row(sql_query("SELECT hits,no_count_hits FROM $option[prefix]_pages WHERE data='http://$current_url' LIMIT 1"));
         $toshow=$hits-$no_count_hits+$option['starthits'];
+        list($hits,$no_count_hits)=mysql_fetch_row(sql_query("SELECT hits,no_count_hits FROM $option[prefix]_pages WHERE data='https://$current_url' LIMIT 1"));
+        $toshow+=$hits-$no_count_hits+$option['starthits'];
         break;
 
     // NUMERO DI DOWNLOADS DELL'ID SPECIFICATO

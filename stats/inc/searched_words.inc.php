@@ -293,7 +293,7 @@ function processWords($data_array, $min_characters)
 		list($query, $visits) = $data_array[$i];
 		// ELIMINO CARATTERI NON UTILI
 		$query = str_replace($search, $replace, $query);
-		$query = eregi_replace('( ){2,}', ' ', $query);
+/*** NON PRESENTE IN PHP7		$query = eregi_replace('( ){2,}', ' ', $query); ***/
 		$query = explode(' ', $query);
 		for ($x = 0, $totx = count($query); $x < $totx; ++$x) {
 			$word = $query[$x];

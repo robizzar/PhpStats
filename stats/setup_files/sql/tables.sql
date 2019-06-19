@@ -42,7 +42,7 @@ INSERT IGNORE INTO php_stats_config VALUES ('prune_4_value', '200');
 INSERT IGNORE INTO php_stats_config VALUES ('prune_5_on', '0');
 INSERT IGNORE INTO php_stats_config VALUES ('prune_5_value', '200');
 #
-INSERT INTO php_stats_config VALUES ('phpstats_ver', '2.4') ON DUPLICATE KEY UPDATE value = "2.4";
+INSERT INTO php_stats_config VALUES ('phpstats_ver', '2.4') ON DUPLICATE KEY UPDATE value = "2.5";
 #
 INSERT IGNORE INTO php_stats_config VALUES ('inadm_last_update', '1256716440');
 INSERT IGNORE INTO php_stats_config VALUES ('inadm_lastcache_time', '0');
