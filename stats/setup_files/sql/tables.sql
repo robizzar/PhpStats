@@ -42,7 +42,7 @@ INSERT IGNORE INTO php_stats_config VALUES ('prune_4_value', '200');
 INSERT IGNORE INTO php_stats_config VALUES ('prune_5_on', '0');
 INSERT IGNORE INTO php_stats_config VALUES ('prune_5_value', '200');
 #
-INSERT INTO php_stats_config VALUES ('phpstats_ver', '2.4') ON DUPLICATE KEY UPDATE value = "2.5";
+INSERT INTO php_stats_config VALUES ('phpstats_ver', '2.6') ON DUPLICATE KEY UPDATE value = "2.6";
 #
 INSERT IGNORE INTO php_stats_config VALUES ('inadm_last_update', '1256716440');
 INSERT IGNORE INTO php_stats_config VALUES ('inadm_lastcache_time', '0');
@@ -125,7 +125,7 @@ INSERT IGNORE INTO php_stats_counters VALUES (0, 0, 0, 0);
 #
 
 CREATE TABLE IF NOT EXISTS php_stats_daily (
-  data date NOT NULL default '0000-00-00',
+  data date NOT NULL default '2000-01-01',
   hits int(11) NOT NULL default '0',
   visits int(11) NOT NULL default '0',
   no_count_hits int(11) NOT NULL default '0',
@@ -754,7 +754,7 @@ CREATE TABLE IF NOT EXISTS php_stats_systems (
 #
 
 CREATE TABLE IF NOT EXISTS php_stats_links (
-data date NOT NULL default '0000-00-00',
+data date NOT NULL default '2000-01-01',
 url varchar(255) NOT NULL default ''
 ) ENGINE=MyISAM;
 

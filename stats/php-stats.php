@@ -416,7 +416,10 @@ if ($phpstats_newret == 1 && $spider_agent === false) {
 
 
 // SCRIVO I DETTAGLI
-if ($modulo[0]) {
+if ($modulo[0])
+{
+	if ($modulo[10] == 0) { $ip = 0; $host = '0.0.0.0'; }	// Se opzione di log IP non attiva, forza a zero prima di salvare
+
 	// *** porzione prelevata dal recphp perchè mancante
 	if ((!$option['refresh_page_title']) && $modulo[3] && $loaded !== '?') {
 		$resultTitle = sql_query("SELECT titlePage FROM $option[prefix]_pages WHERE data='$loaded'");

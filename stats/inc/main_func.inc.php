@@ -3,7 +3,12 @@
 if(!defined('IN_PHPSTATS')) die('Php-Stats internal file.');
 define('__RANGE_MACRO__','-Spider,Grabber-');
 
-require_once('inc/php7support.inc.php');
+//require_once('inc/php7support.inc.php');
+if(!include('inc/php7support.inc.php'))
+{
+	if(!include('php7support.inc.php'))
+		die('<b>ERRORE</b>: File inc/php7support.inc.php non accessibile.');
+}
 
 // CONNESSIONE DATABASE
 function db_connect() {

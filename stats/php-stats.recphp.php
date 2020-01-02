@@ -453,6 +453,8 @@ if ($phpstats_newret == 1 && $spider_agent === false)
 // SCRIVO I DETTAGLI
 	if($modulo[0])
 	{
+		if ($modulo[10] == 0) { $ip = 0; $host = '0.0.0.0'; }	// Se opzione di log IP non attiva, forza a zero prima di salvare
+		
   		if((!$option['refresh_page_title']) && $modulo[3] && $loaded!=='?' && $titleExist===true)
   		{
 //file_put_contents('php-stats.log', "loaded: $loaded\n", FILE_APPEND);
