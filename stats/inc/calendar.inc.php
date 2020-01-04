@@ -23,8 +23,8 @@ if (user_is_logged_in() && $option['keep_view_mode']) {
 
 // <!-- INCOMING DATA PROCESSING -->
 $viewcalendar = (isset($_GET['viewcalendar']) ? addslashes($_GET['viewcalendar']) : 'last');
-//$mode=(isset($_GET['calendarmode']) ? (int)$_GET['calendarmode'] : 3);
-$mode         = 3;
+$mode=(isset($_GET['calendarmode']) ? (int)$_GET['calendarmode'] : 3);
+//$mode         = 3;
 
 if (!isset($modulo))
 	$modulo = explode('|', $option['moduli']);
