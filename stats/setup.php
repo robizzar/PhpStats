@@ -27,7 +27,7 @@ $page='';
 
 //echo "$action<br>";
  
-if ($action>0 && $license!=1) { header("location: http://www.robertobizzarri.net/php-stats"); exit(); }
+if ($action>0 && $license!=1) { header("location: https://bizzarri.altervista.org/php-stats"); exit(); }
 
 if ($action == 2)		// Sono stati inseriti i dati per il database: salva
 {

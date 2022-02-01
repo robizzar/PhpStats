@@ -7,7 +7,7 @@
 //////////////////////////////////////////////////////////
 //
 // ESEMPIO:
-//	<script type="text/javascript" src="/stats/page.js.php?page=http://www.robertobizzarri.net/blog/"></script>
+//	<script type="text/javascript" src="/stats/page.js.php?page=https://bizzarri.altervista.org/blog/"></script>
 //
 
 define('IN_PHPSTATS',true);

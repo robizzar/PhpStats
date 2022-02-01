@@ -96,6 +96,10 @@
             mysqli_free_result($resSet);
         }
 
+        function mysql_num_fields($resSet){
+            mysqli_num_fields($resSet);
+        }
+
         function mysql_result ($result , $row , $field){
             $fetch;
 

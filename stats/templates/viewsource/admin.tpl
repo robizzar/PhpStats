@@ -20,7 +20,7 @@ $autorefresh
                 <td height='60' colspan='2' bgcolor='#666699'>
                         <table width='740'>
                                 <tr>
-                                <td><a href="http://www.robertobizzarri.net/php-stats/"><img src='templates/viewsource/images/logo.png' alt=''></a>
+                                <td><a href="https://bizzarri.altervista.org/php-stats/"><img src='templates/viewsource/images/logo.png' alt=''></a>
                                 </td>
                                 <td align='right' valign='middle'><span class='nomesito'>$option[nomesito]</span>
                                 </td>
@@ -37,7 +37,7 @@ $autorefresh
                 $action<br>
                 </td>
         <tr>
-                <td height='10' bgColor='#666699' colSpan='2'><a href="http://www.robertobizzarri.net/php-stats/"><CENTER><span class='copyright'><b>v{$option[phpstats_ver]}</b> &#169; Roberto Bizzarri - $server_time</span></CENTER></a>
+                <td height='10' bgColor='#666699' colSpan='2'><a href="https://bizzarri.altervista.org/php-stats/"><CENTER><span class='copyright'><b>v{$option[phpstats_ver]}</b> &#169; Roberto Bizzarri - $server_time</span></CENTER></a>
                 </td>
         </TR>
 </table>

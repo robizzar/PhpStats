@@ -595,12 +595,32 @@ if ($titlePage == '?' || $titlePage == '')		/*** Se titolo pagina mancante usa U
        	$arr = mysql_fetch_row($result);
        	$option['inadm_last_update'] = $arr[1];
 	}
-    	    	
+
 	// Check nuove versioni (ogni 10 giorni)
-   	if ( (time()-$option['inadm_last_update']) > (10*24*3600) )
-   	{
-   		$update = @file_get_contents('http://www.robertobizzarri.net/php-stats/phpstats_ver_check.php?url='.trim($option['script_url']).'&ver='.trim($option['phpstats_ver']).'&mon=php');
-   		if (strpos($update, '<!-- New PHP-Stats Version -->') !== false)
+	if ( (time()-$option['inadm_last_update']) > (10*24*3600) )
+	{
+		// Create a new cURL resource
+		$ch = curl_init();
+
+		// Set the file URL to fetch through cURL
+		$q  = '?url=' . urlencode(trim($option['script_url']));
+		$q .= '&ver=' . urlencode(trim($option['phpstats_ver']));
+		$q .= '&mon=php';
+
+		curl_setopt($ch, CURLOPT_URL, 'http://bizzarri.altervista.org/php-stats/phpstats_ver_check.php' . $q);
+
+		// Do not check the SSL certificates
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+		// Return the actual result of the curl result instead of success code
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		$update = curl_exec($ch);
+		curl_close($ch);
+
+// 		$update = @file_get_contents('http://bizzarri.altervista.org/php-stats/phpstats_ver_check.php?url='.trim($option['script_url']).'&ver='.trim($option['phpstats_ver']).'&mon=php');
+   		
+		if (strpos($update, '<!-- New PHP-Stats Version -->') !== false)
    		{
 		    if ($option['check_new_version'])
     		{
@@ -621,7 +641,7 @@ if ($titlePage == '?' || $titlePage == '')		/*** Se titolo pagina mancante usa U
 				$message = 
 				'Site: ' . $option['server_url'] . '<br><br>' .
 				'A new version of PHP-Stats is available.<br><br>' .
-				'<a href="http://www.robertobizzarri.net/php-stats/">Click here to visit the support site.</a><br>';
+				'<a href="https://bizzarri.altervista.org/php-stats/">Click here to visit the support site.</a><br>';
         		
 				mail($user_email, 'PHP-Stats: new version', $message, $headers);
     		}

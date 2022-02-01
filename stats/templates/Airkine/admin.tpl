@@ -117,7 +117,7 @@ $autorefresh
    </td>
    </tr>
    <TR>
-   <td height='10' bgColor='#C1C1C1' colSpan='2' align="center><a href="http://www.robertobizzarri.net/php-stats/"><span class='copyright'><b>v{$option[phpstats_ver]}</b> &#169; Roberto Bizzarri - $server_time</span></a>
+   <td height='10' bgColor='#C1C1C1' colSpan='2' align="center><a href="https://bizzarri.altervista.org/php-stats/"><span class='copyright'><b>v{$option[phpstats_ver]}</b> &#169; Roberto Bizzarri - $server_time</span></a>
  </td>  </TR>
 </table>
 </body>

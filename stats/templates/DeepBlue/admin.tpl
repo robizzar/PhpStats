@@ -20,7 +20,7 @@ $menu_script
         <div style='position:relative'>$menu_script2</div>
                                     <table width='740'>
                                 <tr>
-                                <td><a href="http://www.robertobizzarri.net/php-stats/"><img src='$template_path/images/logo.png' alt=''></a>
+                                <td><a href="https://bizzarri.altervista.org/php-stats/"><img src='$template_path/images/logo.png' alt=''></a>
                                 </td>
                                 <td align='right' valign='middle'><span class='nomesito'>$option[nomesito]</span>
                                 </td>
@@ -40,7 +40,7 @@ $menu_script
                 $action<br>
                 </td>
         <tr bgcolor="#000066">
-          <td height='10' colSpan='2'><a href="http://www.robertobizzarri.net/php-stats/"><CENTER><span class='copyright'><b>v{$option[phpstats_ver]}</b> &#169; Roberto Bizzarri - $server_time</span></a>
+          <td height='10' colSpan='2'><a href="https://bizzarri.altervista.org/php-stats/"><CENTER><span class='copyright'><b>v{$option[phpstats_ver]}</b> &#169; Roberto Bizzarri - $server_time</span></a>
           </CENTER>          </td>
   </TR>
 </table>
